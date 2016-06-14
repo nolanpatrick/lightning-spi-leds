@@ -1,8 +1,6 @@
 #include "Adafruit_WS2801.h"
 #include "SPI.h" // Comment out this line if using Trinket or Gemma
-#ifdef __AVR_ATtiny85__
- #include <avr/power.h>
-#endif
+#include <avr/power.h>
 
 /*****************************************************************************
 Example sketch for driving Adafruit WS2801 pixels!
@@ -25,18 +23,9 @@ Example sketch for driving Adafruit WS2801 pixels!
   BSD license, all text above must be included in any redistribution
 
 *****************************************************************************/
-
-// Choose which 2 pins you will use for output.
-// Can be any valid output pins.
-// The colors of the wires may be totally different so
-// BE SURE TO CHECK YOUR PIXELS TO SEE WHICH WIRES TO USE!
 uint8_t dataPin  = 2;    // Yellow wire on Adafruit Pixels
 uint8_t clockPin = 3;    // Green wire on Adafruit Pixels
 
-// Don't forget to connect the ground wire to Arduino ground,
-// and the +5V wire to a +5V supply
-
-// Set the first variable to the NUMBER of pixels. 25 = 25 pixels in a row
 Adafruit_WS2801 strip = Adafruit_WS2801(32, dataPin, clockPin);
 
 // Optional: leave off pin numbers to use hardware SPI
@@ -53,20 +42,10 @@ Adafruit_WS2801 strip = Adafruit_WS2801(32, dataPin, clockPin);
 //Adafruit_WS2801 strip = Adafruit_WS2801(25, WS2801_GRB);
 
 void setup() {
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000L)
-  clock_prescale_set(clock_div_1); // Enable 16 MHz on Trinket
-#endif
-
   strip.begin();
-
-  // Update LED contents, to start they are all 'off'
   strip.show();
 }
-
-
 void loop() {
-  // Some example procedures showing how to display to the pixels
-  
   colorWipe(Color(255, 0, 0), 10);//blue
   colorWipe(Color(0,50,255), 10);//orange
   colorWipe(Color(255, 0, 0), 10);//blue
