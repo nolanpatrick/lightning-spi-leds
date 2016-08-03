@@ -1,0 +1,47 @@
+#include <avr/power.h>
+#include "SPI.h"
+#include "Adafruit_WS2801.h"
+
+Adafruit_WS2801 strip = Adafruit_WS2801(25);	//USE HARDWARE SPI BUS ON ARDUINO BOARD
+
+/**
+This code borrows from the Adafruit example for their Pixel leds, and has been rewritten to do what we need it to do with the generic LEDs we have.
+These LED Strips seem to use BGR as the color control values rather than RGB. This means that although the software says RGB, it needs to be programmed as BGR.
+**/
+
+void setup() {
+  strip.begin();
+  strip.show();
+}
+
+void loop() {
+  lightShow(Color(255, 0, 0), 10);	 //blue
+  lightShow(Color(0,50,255), 10);	//orange
+  lightShow(Color(255, 0, 0), 10);	 //blue
+  lightShow(Color(0,50,255), 10);	//orange
+  lightShow(Color(255, 0, 0), 40);	 //blue
+  lightShow(Color(0,50,255), 40);	//orange
+  lightShow(Color(255, 0, 0), 40);	 //blue
+  lightShow(Color(0,50,255), 40);	//orange
+}
+
+void lightShow(uint32_t c, uint8_t wait) {
+  int i;
+  
+  for (i=0; i < strip.numPixels(); i++) {
+      strip.setPixelColor(i, c);
+      strip.show();
+      delay(wait);
+  }
+}
+
+uint32_t Color(byte r, byte g, byte b)
+{
+  uint32_t c;
+  c = r;
+  c <<= 8;
+  c |= g;
+  c <<= 8;
+  c |= b;
+  return c;
+}
