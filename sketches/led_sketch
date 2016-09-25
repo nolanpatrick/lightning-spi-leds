@@ -2,7 +2,12 @@
 #include "SPI.h"
 #include "Adafruit_WS2801.h"
 
-Adafruit_WS2801 strip = Adafruit_WS2801(25);	//USE HARDWARE SPI BUS ON ARDUINO BOARD
+//Adafruit_WS2801 strip = Adafruit_WS2801(25);	//USE HARDWARE SPI BUS ON ARDUINO BOARD (Comment out SW SPI code to use this)
+
+uint8_t dataPin  = 2;
+uint8_t clockPin = 3;
+Adafruit_WS2801 strip = Adafruit_WS2801(32, dataPin, clockPin);
+//This uses software SPI and allows us to define the pins we would like to use.
 
 /**
 This code borrows from the Adafruit example for their Pixel leds, and has been rewritten to do what we need it to do with the generic LEDs we have.
